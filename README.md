@@ -12,12 +12,14 @@ http://image-net.org/synset?
 
 browse to the category you want to download the images for,
 get 'wnid' by clicking on Wordnet IDs on top right
- 
+
 now insert 'wnid' in link below, copy all text and save it in a file (eg. images_url.txt)
 http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=[wnid] 
+
+eg.http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=n03666591
 
 navigate to the repository directory you extracted create a new folder [images]
 open terminal in repository directory and run:
 
-$ python download_imagenet_images.py --u '/path/to/images_url.txt' --o './images
+$ python download_imagenet_images.py -u images_url.txt -o ./images
 

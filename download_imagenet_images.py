@@ -3,11 +3,12 @@ import argparse
 import requests
 import cv2
 import os
-
+import urllib3
+urllib3.disable_warnings()
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-u", "--urls", required=True,
-#	help="path to file containing image URLs")
+	help="path to file containing image URLs")
 ap.add_argument("-o", "--output", required=True,
 	help="path to output directory of images")
 args = vars(ap.parse_args())
@@ -15,17 +16,17 @@ args = vars(ap.parse_args())
 # grab the list of URLs from the input file, then initialize the
 # total number of images downloaded thus far
 
-full = open(args["urls"]).read().strip().split("\n")
+full = open(args["urls"],'r', encoding='UTF-8').read().strip().split("\n")
 #rows = open(args["urls"]).read().strip().split("\n")
 total = 0
-
+p="empty"
 # loop the URLs
 for url in full:
 	try:
 		# try to download the image
 		name = url.split(" ")  
 		#print(name[1])
-		r = requests.get(name[1], timeout=60)
+		r = requests.get(name[1], timeout=60,verify=False)
  
 		# save the image to disk
 		p = os.path.sep.join([args["output"], "{}.jpg".format(
